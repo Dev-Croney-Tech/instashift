@@ -1,0 +1,2 @@
+# Redirects from pages.dev to custom domain
+https://instashift.pages.dev/* https://instashift.croney-tech.fr/:splat 301!
