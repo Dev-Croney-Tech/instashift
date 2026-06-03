@@ -468,7 +468,7 @@ export default function Dashboard() {
                           <h4 className="font-bold text-xs text-text-secondary group-hover:text-text-primary truncate Outfit">
                             {snapshot.label}
                           </h4>
-                          <p className="text-[10px] text-text-muted">
+                          <p className="text-xs text-text-muted">
                             {new Date(snapshot.date).toLocaleDateString("fr-FR")} • {snapshot.followersCount} abonnés
                           </p>
                         </div>
@@ -582,7 +582,7 @@ export default function Dashboard() {
               <h2 className="text-3xl font-extrabold mt-3 bg-gradient-to-r from-text-primary to-text-secondary bg-clip-text text-transparent Outfit">
                 {analysis.stats.followersCount}
               </h2>
-              <div className="mt-1 flex items-center justify-between text-[10px] text-text-muted">
+              <div className="mt-1 flex items-center justify-between text-xs text-text-muted">
                 <span>Profils qui vous suivent</span>
                 <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
               </div>
@@ -600,7 +600,7 @@ export default function Dashboard() {
               <h2 className="text-3xl font-extrabold mt-3 bg-gradient-to-r from-text-primary to-text-secondary bg-clip-text text-transparent Outfit">
                 {analysis.stats.followingCount}
               </h2>
-              <div className="mt-1 flex items-center justify-between text-[10px] text-text-muted">
+              <div className="mt-1 flex items-center justify-between text-xs text-text-muted">
                 <span>Profils suivis par vous</span>
                 <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
               </div>
@@ -619,7 +619,7 @@ export default function Dashboard() {
               <h2 className="text-3xl font-extrabold mt-3 text-brand-rose Outfit text-glow">
                 {analysis.stats.nonFollowersBackCount}
               </h2>
-              <div className="mt-1 flex items-center justify-between text-[10px] text-text-muted">
+              <div className="mt-1 flex items-center justify-between text-xs text-text-muted">
                 <span>Ils ne vous suivent pas en retour</span>
                 <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
               </div>
@@ -637,7 +637,7 @@ export default function Dashboard() {
               <h2 className="text-3xl font-extrabold mt-3 text-brand-emerald Outfit">
                 {analysis.stats.fansCount}
               </h2>
-              <div className="mt-1 flex items-center justify-between text-[10px] text-text-muted">
+              <div className="mt-1 flex items-center justify-between text-xs text-text-muted">
                 <span>Vous ne les suivez pas en retour</span>
                 <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
               </div>
@@ -655,7 +655,7 @@ export default function Dashboard() {
               <h2 className="text-3xl font-extrabold mt-3 bg-gradient-to-r from-brand-purple to-brand-cyan bg-clip-text text-transparent Outfit">
                 {analysis.stats.mutualsCount}
               </h2>
-              <div className="mt-1 flex items-center justify-between text-[10px] text-text-muted">
+              <div className="mt-1 flex items-center justify-between text-xs text-text-muted">
                 <span>Abonnements mutuels ({analysis.stats.followBackRatio}%)</span>
                 <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
               </div>
@@ -675,7 +675,7 @@ export default function Dashboard() {
                   <Calendar className="w-4 h-4 text-brand-purple" />
                   <span>Historique des instantanés</span>
                 </h3>
-                <p className="text-[11px] text-text-muted mt-1 leading-relaxed">
+                <p className="text-xs text-text-muted mt-1 leading-relaxed">
                   Sélectionnez un instantané ci-dessous pour le comparer à votre analyse en cours et découvrir vos nouveaux abonnés et désabonnements.
                 </p>
               </div>
@@ -696,12 +696,12 @@ export default function Dashboard() {
                         <h4 className="font-bold text-xs text-text-secondary Outfit truncate max-w-[140px] group-hover:text-text-primary">
                           {snapshot.label}
                         </h4>
-                        <p className="text-[9px] text-text-muted">
+                        <p className="text-[11px] text-text-muted">
                           {new Date(snapshot.date).toLocaleDateString("fr-FR")} • {snapshot.followersCount} Abonnés
                         </p>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <span className="text-[9px] px-2 py-0.5 rounded-full bg-brand-purple/20 text-brand-purple border border-brand-purple/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <span className="text-[11px] px-2 py-0.5 rounded-full bg-brand-purple/20 text-brand-purple border border-brand-purple/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                           Comparer
                         </span>
                         <button
@@ -820,7 +820,7 @@ export default function Dashboard() {
                         </div>
 
                         {/* Commutateur d'onglets de comparaison */}
-                        <div className="flex items-center rounded-xl overflow-hidden border border-border-glass text-[11px] bg-bg-item p-0.5 max-w-xs sm:max-w-sm">
+                        <div className="flex items-center rounded-xl overflow-hidden border border-border-glass text-xs bg-bg-item p-0.5 max-w-xs sm:max-w-sm">
                           <button
                             onClick={() => setComparisonTab("followers")}
                             className={`flex-1 py-1.5 px-2 font-semibold Outfit transition-all duration-200 cursor-pointer text-center rounded-lg ${
@@ -921,7 +921,7 @@ export default function Dashboard() {
                                 className="p-2.5 rounded-xl border border-brand-purple/10 bg-brand-purple/5 flex items-center justify-between text-xs font-medium text-text-secondary"
                               >
                                 <span className="truncate">
-                                  <span className="text-text-muted text-[10px]">@{change.oldUsername}</span>
+                                  <span className="text-text-muted text-[11px]">@{change.oldUsername}</span>
                                   <span className="mx-2 text-brand-purple font-bold">➜</span>
                                   <a
                                     href={change.url}
@@ -932,7 +932,7 @@ export default function Dashboard() {
                                     @{change.newUsername}
                                   </a>
                                 </span>
-                                <span className="text-[9px] text-text-muted flex-shrink-0 ml-2">
+                                <span className="text-[11px] text-text-muted flex-shrink-0 ml-2">
                                   {new Date(change.timestamp * 1000).toLocaleDateString("fr-FR")}
                                 </span>
                               </div>
@@ -983,7 +983,7 @@ export default function Dashboard() {
                         <Users className="w-5 h-5 text-text-muted" />
                       </div>
                       <h4 className="font-semibold text-sm text-text-secondary Outfit">Aucun profil trouvé</h4>
-                      <p className="text-[10px] text-text-muted">Essayez d'ajuster votre recherche.</p>
+                      <p className="text-xs text-text-muted">Essayez d'ajuster votre recherche.</p>
                     </div>
                   ) : (
                     <div className="flex-1 flex flex-col justify-between">
@@ -1001,11 +1001,11 @@ export default function Dashboard() {
                               <span className="font-bold text-xs text-text-secondary group-hover:text-text-primary Outfit block truncate">
                                 @{user.username}
                               </span>
-                              <span className="text-[9px] text-text-muted block font-medium">
+                              <span className="text-[11px] text-text-muted block font-medium">
                                 Suivi le {new Date(user.timestamp * 1000).toLocaleDateString("fr-FR")}
                               </span>
                             </div>
-                            <span className="text-[9px] px-2 py-0.5 rounded-full bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            <span className="text-[11px] px-2 py-0.5 rounded-full bg-brand-cyan/10 text-brand-cyan border border-brand-cyan/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                               Voir le profil
                             </span>
                           </a>

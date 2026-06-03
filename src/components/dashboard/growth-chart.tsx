@@ -162,7 +162,7 @@ export default function GrowthChart({ followers, following }: GrowthChartProps) 
             <svg className="w-4 h-4 text-brand-purple" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
             <span>Croissance de l'audience</span>
           </h3>
-          <p className="text-[11px] text-text-muted mt-1">
+          <p className="text-xs text-text-muted mt-1">
             Nombre de nouveaux abonnés et abonnements par période, basé sur les dates d'abonnement de votre export.
           </p>
         </div>
@@ -233,7 +233,7 @@ export default function GrowthChart({ followers, following }: GrowthChartProps) 
                     y={y + 3}
                     textAnchor="end"
                     className="fill-text-muted font-bold"
-                    fontSize="9"
+                    fontSize="10"
                     fontFamily="Outfit, sans-serif"
                   >
                     {Math.round(frac * maxVal)}
@@ -280,7 +280,7 @@ export default function GrowthChart({ followers, following }: GrowthChartProps) 
                     y={chartTop + chartHeight + 16}
                     textAnchor="middle"
                     className="fill-text-muted font-bold"
-                    fontSize="8"
+                    fontSize="10"
                     fontFamily="Outfit, sans-serif"
                   >
                     {d.label}

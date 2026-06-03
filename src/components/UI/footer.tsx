@@ -19,7 +19,7 @@ export default function Footer() {
         </p>
         
         {/* Line 2: Privacy Statement */}
-        <p className="text-[11px] leading-relaxed max-w-md">
+        <p className="text-xs leading-relaxed max-w-md">
           Conçu pour le respect absolu de la vie privée. Aucune donnée ne quitte jamais votre appareil.
         </p>
         
@@ -28,7 +28,7 @@ export default function Footer() {
           href="https://dev.croney-tech.fr/mentions-legales"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[10px] text-text-muted hover:text-brand-purple hover:underline transition-all duration-200"
+          className="text-xs text-text-muted hover:text-brand-purple hover:underline transition-all duration-200"
         >
           Mentions légales
         </a>

@@ -66,7 +66,7 @@ export default function Header({ onReset }: HeaderProps) {
             <span className="font-bold text-xl tracking-tight bg-gradient-to-r from-text-primary via-brand-indigo to-brand-purple bg-clip-text text-transparent Outfit">
               Insta<span className="text-brand-cyan">Shift</span>
             </span>
-            <span className="hidden sm:inline-block ml-2 px-2 py-0.5 text-[10px] font-medium tracking-wide uppercase rounded-md bg-brand-purple/20 border border-brand-purple/30 text-brand-purple text-glow">
+            <span className="hidden sm:inline-block ml-2 px-2 py-0.5 text-xs font-medium tracking-wide uppercase rounded-md bg-brand-purple/20 border border-brand-purple/30 text-brand-purple text-glow">
               OpenSource
             </span>
           </div>
