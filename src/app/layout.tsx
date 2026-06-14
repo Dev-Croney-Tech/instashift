@@ -16,9 +16,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "InstaShift 🔄 | Analyseur d'audience Instagram Privé & Open-Source",
-  description: "Analysez vos abonnés Instagram, repérez qui ne vous suit pas en retour et comparez l'évolution temporelle de votre compte de façon 100% sécurisée et locale.",
-  keywords: ["Instagram", "Followers", "Analyseur", "Qui ne me suit pas", "Unfollow", "Instagram Data Export", "Privé", "Open-Source"],
+  title: "InstaShift | Qui ne me suit pas sur Instagram (Gratuit & Sécurisé)",
+  description: "Découvrez les non-abonnés en retour et suivez l'évolution de vos followers sans mot de passe. Analyseur Instagram gratuit, 100% sécurisé et local.",
+  keywords: [
+    "qui ne me suit pas sur instagram",
+    "qui ne me suit plus instagram",
+    "analyseur abonnes instagram gratuit",
+    "instagram unfollow gratuit",
+    "unfollow tracker instagram",
+    "analyse followers instagram sans mot de passe",
+    "analyseur audience instagram prive",
+    "comparer abonnes instagram",
+    "instashift"
+  ],
   authors: [{ name: "Dev.Croney-Tech", url: "https://dev.croney-tech.fr" }],
   alternates: {
     canonical: "https://instashift.croney-tech.fr",
@@ -37,8 +47,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "InstaShift 🔄 | Analyseur d'audience Instagram Privé & Open-Source",
-    description: "Comparez l'évolution de vos abonnés et analysez les non-abonnés en retour à partir de vos exports ZIP locaux. Zéro serveur, confidentialité absolue.",
+    title: "InstaShift | Qui ne me suit pas sur Instagram (Gratuit & Sécurisé)",
+    description: "Découvrez gratuitement et sans mot de passe qui ne vous suit pas en retour sur Instagram. Analysez vos abonnés de façon 100% sécurisée et locale.",
     url: "https://instashift.croney-tech.fr",
     siteName: "InstaShift",
     locale: "fr_FR",
@@ -46,8 +56,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "InstaShift 🔄 | Analyseur d'audience Instagram Privé & Open-Source",
-    description: "Analysez vos followers sans risquer le piratage ou le blocage de votre compte. 100% client-side.",
+    title: "InstaShift | Qui ne me suit pas sur Instagram (Gratuit & Sécurisé)",
+    description: "Analysez vos followers sans risquer le piratage ou le blocage de votre compte. 100% client-side, gratuit et sans mot de passe.",
     creator: "@CroneyTech",
   },
 };

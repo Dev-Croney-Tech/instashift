@@ -350,11 +350,11 @@ export default function Dashboard() {
           {/* En-tête de bienvenue */}
           <div className="max-w-3xl mx-auto text-center space-y-4">
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight Outfit text-glow bg-gradient-to-r from-text-primary via-brand-indigo to-brand-purple bg-clip-text text-transparent">
-              Analysez votre compte Instagram en toute sécurité
+              Qui ne me suit pas sur Instagram ?
             </h1>
             <p className="text-text-secondary max-w-2xl mx-auto text-sm sm:text-base Inter">
-              Comparez l'évolution de vos abonnés et repérez les non-abonnés en retour de manière 
-              <strong className="text-text-primary font-semibold"> 100% locale et privée</strong>. Aucun mot de passe requis, aucune donnée ne quitte votre ordinateur.
+              Découvrez les non-abonnés en retour et suivez l'évolution de vos followers grâce à notre 
+              <strong className="text-text-primary font-semibold"> analyseur Instagram gratuit, 100% privé et sans mot de passe</strong>. Aucun risque pour votre compte, tout est traité localement.
             </p>
           </div>
 
@@ -421,7 +421,7 @@ export default function Dashboard() {
                 </h4>
                 <div className="text-xs text-text-secondary space-y-4 Inter leading-relaxed">
                   <div className="space-y-2">
-                    <p className="font-semibold text-text-primary">📱 Option A : Depuis l'application mobile (iOS / Android)</p>
+                    <p className="font-semibold text-text-primary">Option A : Depuis l'application mobile (iOS / Android)</p>
                     <ol className="list-decimal list-inside pl-2 space-y-1">
                       <li>Rendez-vous sur votre profil ➜ Appuyez sur le menu principal <strong className="text-text-primary">☰</strong> (en haut à droite).</li>
                       <li>Sélectionnez <strong className="text-text-primary">Votre activité</strong> ➜ <strong className="text-text-primary">Télécharger vos informations</strong>.</li>
@@ -432,9 +432,9 @@ export default function Dashboard() {
                     </ol>
                   </div>
                   <div className="space-y-2">
-                    <p className="font-semibold text-text-primary">💻 Option B : Depuis un navigateur (Ordinateur)</p>
+                    <p className="font-semibold text-text-primary">Option B : Depuis un navigateur (Ordinateur)</p>
                     <ol className="list-decimal list-inside pl-2 space-y-1">
-                      <li>Allez dans Paramètres ⚙️ ➜ <strong className="text-text-primary">Centre des comptes</strong>.</li>
+                      <li>Allez dans Paramètres ➜ <strong className="text-text-primary">Centre des comptes</strong>.</li>
                       <li>Sélectionnez <strong className="text-text-primary">Vos informations et autorisations</strong> ➜ <strong className="text-text-primary">Télécharger vos informations</strong>.</li>
                       <li>Suivez les mêmes étapes (Téléchargement partiel ➜ Cochez <strong className="text-brand-purple">Abonnés et abonnements</strong> ➜ format <strong className="text-brand-cyan">JSON</strong>).</li>
                     </ol>
@@ -487,19 +487,19 @@ export default function Dashboard() {
                 </h4>
                 <div className="space-y-4 text-xs text-text-secondary Inter leading-relaxed">
                   <div className="space-y-1">
-                    <h5 className="font-bold text-text-primary">🛡️ Est-ce sécurisé pour mon compte Instagram ?</h5>
+                    <h5 className="font-bold text-text-primary">Est-ce sécurisé pour mon compte Instagram ?</h5>
                     <p>Absolument. Contrairement aux applications tierces qui demandent vos identifiants (mot de passe) et risquent de bloquer ou de pirater votre compte, InstaShift n'utilise aucun mot de passe. Tout le traitement se fait hors-ligne dans votre navigateur.</p>
                   </div>
                   <div className="space-y-1">
-                    <h5 className="font-bold text-text-primary">📂 Mes données d'audience sont-elles envoyées sur internet ?</h5>
+                    <h5 className="font-bold text-text-primary">Mes données d'audience sont-elles envoyées sur internet ?</h5>
                     <p>Non. C'est un outil statique 100% local. Vos fichiers ZIP et vos listes d'abonnés restent intégralement sur votre ordinateur. Aucun serveur externe n'est utilisé. Les instantanés d'historique que vous sauvegardez sont enregistrés uniquement dans la base IndexedDB locale de votre propre navigateur.</p>
                   </div>
                   <div className="space-y-1">
-                    <h5 className="font-bold text-text-primary">📊 Pourquoi mon compteur de "suivis" Instagram (ex: 191) diffère du site (ex: 193) ?</h5>
+                    <h5 className="font-bold text-text-primary">Pourquoi mon compteur de "suivis" Instagram (ex: 191) diffère du site (ex: 193) ?</h5>
                     <p>L'export officiel d'Instagram contient tous vos abonnements bruts stockés dans leur base de données. Cependant, l'application mobile Instagram masque d'elle-même les comptes temporairement suspendus, restreints ou désactivés. InstaShift vous montre la liste brute réelle.</p>
                   </div>
                   <div className="space-y-1">
-                    <h5 className="font-bold text-text-primary">🔄 Comment fonctionne la répartition et la cohérence des compteurs (Mutuels, Sans retour, Fans) ?</h5>
+                    <h5 className="font-bold text-text-primary">Comment fonctionne la répartition et la cohérence des compteurs (Mutuels, Sans retour, Fans) ?</h5>
                     <p>La répartition mathématique est logique et stricte :
                       <br />• <strong>Vos Abonnements (Suivis)</strong> = Abonnements Mutuels + Non-abonnés en retour (Sans retour).
                       <br />• <strong>Vos Abonnés (Followers)</strong> = Abonnements Mutuels + Fans.
@@ -507,11 +507,11 @@ export default function Dashboard() {
                     </p>
                   </div>
                   <div className="space-y-1">
-                    <h5 className="font-bold text-text-primary">📉 Pourquoi mon nombre d'abonnés ou d'abonnements affiché est-il très inférieur à la réalité de mon compte Instagram ?</h5>
-                    <p>Cela se produit généralement si vous avez demandé un <strong>export de données partiel ou limité dans le temps</strong> (par exemple, uniquement les 3 derniers mois ou la dernière semaine) au lieu de sélectionner <strong>"Tout le temps"</strong> dans les options de période lors de votre demande de téléchargement sur Instagram. Votre fichier ZIP ne contient alors qu'une partie de vos données. Pour y remédier, relancez simplement une demande d'archive complète sur Instagram en veillant à sélectionner "Tout le temps".</p>
+                    <h5 className="font-bold text-text-primary">Pourquoi mon compteur d'abonnés ou d'abonnements affiché est-il très inférieur à la réalité de mon compte Instagram ?</h5>
+                    <p>Cela arrive si votre fichier ZIP lui-même ne contient que 102 abonnés. Cela arrive si vous avez fait un export partiel (par exemple sur les 3 derniers mois uniquement) au lieu de choisir "Toutes les données" lors de votre demande à Instagram.</p>
                   </div>
                   <div className="space-y-1">
-                    <h5 className="font-bold text-text-primary">🗑️ Puis-je voir des détails sur les comptes supprimés (ex: @compte_desactive) ?</h5>
+                    <h5 className="font-bold text-text-primary">Puis-je voir des détails sur les comptes supprimés (ex: @compte_desactive) ?</h5>
                     <p>Le fichier ZIP d'Instagram ne contient que le snapshot instantané de votre compte à un instant T. Il n'indique pas qui a supprimé son compte. C'est pour cela qu'InstaShift propose de sauvegarder des instantanés locaux : en les comparant, vous verrez précisément quel compte n'existe plus.</p>
                   </div>
                 </div>
@@ -579,7 +579,7 @@ export default function Dashboard() {
                 <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider Outfit">Abonnés</span>
                 <Users className="w-4 h-4 text-brand-purple" />
               </div>
-              <h2 className="text-3xl font-extrabold mt-3 bg-gradient-to-r from-text-primary to-text-secondary bg-clip-text text-transparent Outfit">
+              <h2 className="text-3xl font-extrabold mt-3 text-text-primary Outfit">
                 {analysis.stats.followersCount}
               </h2>
               <div className="mt-1 flex items-center justify-between text-xs text-text-muted">
@@ -597,7 +597,7 @@ export default function Dashboard() {
                 <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider Outfit">Abonnements</span>
                 <UserCheck className="w-4 h-4 text-brand-cyan" />
               </div>
-              <h2 className="text-3xl font-extrabold mt-3 bg-gradient-to-r from-text-primary to-text-secondary bg-clip-text text-transparent Outfit">
+              <h2 className="text-3xl font-extrabold mt-3 text-text-primary Outfit">
                 {analysis.stats.followingCount}
               </h2>
               <div className="mt-1 flex items-center justify-between text-xs text-text-muted">
@@ -652,7 +652,7 @@ export default function Dashboard() {
                 <span className="text-xs font-semibold text-text-secondary uppercase tracking-wider Outfit">Mutuels</span>
                 <ArrowUpDown className="w-4 h-4 text-brand-purple" />
               </div>
-              <h2 className="text-3xl font-extrabold mt-3 bg-gradient-to-r from-brand-purple to-brand-cyan bg-clip-text text-transparent Outfit">
+              <h2 className="text-3xl font-extrabold mt-3 text-brand-purple Outfit">
                 {analysis.stats.mutualsCount}
               </h2>
               <div className="mt-1 flex items-center justify-between text-xs text-text-muted">
@@ -794,7 +794,7 @@ export default function Dashboard() {
                               ))}
                             </select>
                           </div>
-                          <div className="hidden sm:block text-text-muted text-xs font-bold font-mono">⚡</div>
+                          <div className="hidden sm:block text-text-muted text-xs font-bold font-mono">VS</div>
                           <div className="flex-1 flex items-center gap-2 text-xs">
                             <span className="text-text-secondary font-medium whitespace-nowrap">Instant B (Ancien) :</span>
                             <select

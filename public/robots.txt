@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://instashift.croney-tech.fr/sitemap.xml
