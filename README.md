@@ -1,112 +1,95 @@
-# 🔄 InstaShift
+# InstaShift
 
-[![Licence: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](https://opensource.org/licenses/MIT)
-[![Stack: Next.js 16](https://img.shields.io/badge/Stack-Next.js%2016-blue.svg)](https://nextjs.org/)
-[![Style: Tailwind v4](https://img.shields.io/badge/Style-Tailwind%20v4-cyan.svg)](https://tailwindcss.com/)
-[![Security: 100% Client--Side](https://img.shields.io/badge/Security-100%25%20Client--Side-emerald.svg)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-5e6ad2.svg)](https://opensource.org/licenses/MIT)
+[![Stack: Next.js 16](https://img.shields.io/badge/Stack-Next.js%2016-0f1011.svg)](https://nextjs.org/)
+[![Style: Tailwind v4](https://img.shields.io/badge/Style-Tailwind%20v4-0f1011.svg)](https://tailwindcss.com/)
+[![Runtime: 100% Client-Side](https://img.shields.io/badge/Runtime-100%25%20Client--Side-34d399.svg)](https://instashift.croney-tech.fr)
 
-**InstaShift** est un analyseur d'audience Instagram statique premium, **100% sécurisé, privé et open-source**. 
+**InstaShift** est un workbench open-source d'analyse différentielle d'audience Instagram, conçu pour s'exécuter intégralement côté client dans le navigateur.
 
-Contrairement aux applications mobiles classiques qui exigent vos identifiants de connexion (présentant des risques de piratage ou de bannissement de compte), InstaShift traite vos données **intégralement en local dans votre navigateur**. Aucune donnée ne quitte votre ordinateur, aucun mot de passe n'est requis. Il utilise l'export d'informations officiel d'Instagram pour analyser vos abonnés et suivre l'évolution temporelle de votre compte.
+Contrairement aux services tiers qui demandent vos identifiants Instagram ou utilisent des scrapers non officiels (exposant le compte à des restrictions ou révocations de session), InstaShift opère exclusivement sur l'archive officielle générée par l'Espace Comptes Meta (`.zip`, `.json` ou `.html`). La décompression, la normalisation UTF-8 et le calcul de différences entre snapshots s'effectuent en mémoire locale via `JSZip` et `IndexedDB`.
 
-🌍 **Site Web** : [instashift.croney-tech.fr](https://instashift.croney-tech.fr)  
-💻 **Propulsé par** : [Dev.Croney-Tech](https://dev.croney-tech.fr) 
-
----
-
-## ✨ Fonctionnalités Clés
-
-* 🔒 **Confidentialité Absolue** : Traitement 100% client-side. Pas de base de données distante, pas de serveurs tiers, pas de trackers. Vos données restent les vôtres.
-* 📦 **Import Direct en Drag & Drop (WOW Effect)** : Glissez-déposez simplement votre fichier ZIP d'export Instagram officiel. L'application le décompresse et le parse à la volée en tâche de fond à l'aide de `JSZip`.
-* 📊 **Analyse d'Audience Précise** :
-  * **Sans retour** : Les comptes que vous suivez mais qui ne vous suivent pas en retour.
-  * **Fans** : Les comptes qui vous suivent mais que vous ne suivez pas en retour.
-  * **Abonnés mutuels** : Vos abonnements réciproques.
-  * **Listes complètes** : Vos abonnés et abonnements triés et filtrés instantanément.
-* 🔄 **Évolution Temporelle (IndexedDB locale)** : Sauvegardez des instantanés historiques dans la base de données IndexedDB sécurisée de votre propre navigateur pour analyser :
-  * Vos **abonnés entrants** (les nouveaux abonnés depuis la dernière fois).
-  * Vos **abonnés sortants** (les comptes qui se sont désabonnés).
-  * L'évolution nette de votre croissance.
-* 🎨 **UI/UX Haute Couture** : Design futuriste en mode sombre profond, effets de flou de verre (glassmorphism), micro-animations dynamiques (GSAP), et défilement ultra-fluide (Lenis).
+- **Application en production** : [instashift.croney-tech.fr](https://instashift.croney-tech.fr)
+- **Ingénierie & Maintenance** : [Dev.Croney-Tech](https://dev.croney-tech.fr)
 
 ---
 
-## 🛠️ Stack Technique
+## Architecture & Fonctionnalités
 
-* **Framework** : [Next.js v16](https://nextjs.org/) (App Router & TypeScript) avec export HTML statique.
-* **Design & Styles** : [Tailwind CSS v4](https://tailwindcss.com/) & animations fluides personnalisées.
-* **Moteur de Décompression** : [JSZip](https://stuk.github.io/jszip/) pour l'extraction locale.
-* **Smooth Scroll** : [Lenis](https://lenis.darkroom.engineering/) avec support d'accessibilité.
-* **Animations** : [GSAP](https://greensock.com/gsap/) pour l'apparition progressive des éléments et des statistiques.
-* **Base de données** : API IndexedDB native du navigateur pour le stockage persistant et chiffré localement.
-* **Icônes** : [Lucide React](https://lucide.dev/).
-
----
-
-## 📖 Guide de démarrage utilisateur (Comment obtenir vos données ?)
-
-Pour que l'outil fonctionne de manière instantanée (avec un ZIP de moins de 1 Mo), suivez ces étapes simples pour exporter vos données Instagram :
-
-1. Allez sur **Instagram** &gt; **Votre activité** &gt; **Télécharger vos informations**.
-2. Sélectionnez **Téléchargement partiel**.
-3. Cochez **uniquement** la case **Abonnés et abonnements** (cela évite de télécharger vos photos/vidéos et permet à Instagram de générer le fichier en moins de 2 minutes).
-4. Choisissez le format **JSON** (fortement recommandé pour la précision) ou HTML.
-5. Validez la demande. Une fois le mail de confirmation d'Instagram reçu, téléchargez votre fichier ZIP et glissez-le directement sur [InstaShift](https://instashift.croney-tech.fr).
+- **Exécution 100% Locale (Zero-Network Sandbox)** : Aucune requête réseau sortante (`connect-src 'self'`). Les fichiers importés restent dans la mémoire vive de l'onglet actif.
+- **Support Multi-Format & Décodage Mojibake Meta** :
+  - Prise en charge directe de l'archive `.zip` complète ou sélection multiple de fichiers extraits (`followers_1.json`, `followers_2.json`, `following.json` ou équivalents `.html`).
+  - Correction automatique de l'encodage UTF-8 littéral propre aux exports JSON de Meta (`decodeMetaMojibake`).
+  - Tri numérique naturel des archives paginées (`followers_1.json` à `followers_N.json`) pour les comptes à forte audience.
+- **Comparateur Temporel Git Diff (`IndexedDB`)** :
+  - Sauvegarde locale d'instantanés horodatés dans la base `IndexedDB` du navigateur.
+  - Calcul différentiel entre deux snapshots quelconques (Base → Cible) avec inversion directionnelle instantanée :
+    - `+` **Abonnés entrants** (nouveaux abonnés sur la période).
+    - `-` **Désabonnements sortants** (comptes ayant cessé de suivre).
+    - `~` **Détection de renommages (`@old` → `@new`)** basée sur l'unicité stricte du timestamp Unix d'abonnement initial (`fréquence === 1` dans l'ancien et le nouveau snapshot).
+  - Export et réimport complets de la base locale au format `.json`.
+- **Explorateur Haute Densité & Télémétrie** :
+  - Navigation clavier rapide (`/` ou `⌘K` pour filtrer, `ESC` pour réinitialiser).
+  - Tri par date d'action (plus récent / plus ancien) ou ordre alphabétique (`A → Z` / `Z → A`).
+  - Export de n'importe quelle vue filtrée en **CSV** (avec BOM UTF-8), **JSON**, ou copie directe de la liste de `@usernames` dans le presse-papier.
+  - Mode Démo en 1 clic pré-chargé pour tester immédiatement l'interface et le comparateur `Git Diff` sans archive sous la main.
 
 ---
 
-## 💻 Installation & Développement Local
+## Stack Technique
 
-Si vous souhaitez faire tourner InstaShift sur votre machine ou contribuer au projet :
+- **Framework** : [Next.js 16](https://nextjs.org/) (App Router, TypeScript strict, compilation statique `output: "export"`).
+- **Système Visuel** : [Tailwind CSS v4](https://tailwindcss.com/) — Design System *Linear Dark (80%) × Vercel Geist Analytics (20%)* (`Geist Sans` & `Geist Mono`, `tabular-nums`).
+- **Moteur d'Archive** : [JSZip](https://stuk.github.io/jszip/) pour la lecture asynchrone de flux ZIP en mémoire.
+- **Persistance Locale** : API native `IndexedDB` (`InstaShiftDB`).
+
+---
+
+## Guide d'extraction de l'archive Instagram (Meta)
+
+Pour obtenir une archive légère (quelques centaines de Ko) générée en moins de 5 minutes :
+
+1. Ouvrez **Instagram** > **Paramètres et activité** > **Espace Comptes** > **Vos informations et autorisations** > **Télécharger vos informations**.
+2. Choisissez **Télécharger ou transférer des informations** puis **Certaines de vos informations**.
+3. Cochez uniquement **Abonnés et suivi** (`Followers and following`) dans la section Connexions.
+4. Sélectionnez **Télécharger sur l'appareil**, définissez la **Plage de dates : Depuis le début** (`All time`) et le **Format : JSON** (recommandé pour la précision des timestamps Unix à la seconde).
+5. Déposez le fichier `.zip` obtenu directement dans [InstaShift](https://instashift.croney-tech.fr).
+
+---
+
+## Développement Local & Build Statique
 
 ### Prérequis
-* [Node.js](https://nodejs.org/) (version 18 ou supérieure recommandée)
-* npm, pnpm ou yarn
+- Node.js >= 20
+- npm
 
-### 1. Cloner le dépôt
+### Installation
 ```bash
 git clone https://github.com/Dev-Croney-Tech/instashift.git
 cd instashift
-```
-
-### 2. Installer les dépendances
-```bash
 npm install
 ```
 
-### 3. Lancer le serveur de développement
+### Serveur de développement
 ```bash
 npm run dev
 ```
-Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur pour voir le résultat.
 
-### 4. Compiler pour la production (Export statique HTML)
+### Vérification & Compilation Statique (`/out`)
 ```bash
+npm run lint
 npm run build
 ```
-Les fichiers HTML/CSS/JS compilés et prêts à être hébergés de manière statique (sur Cloudflare Pages, Netlify ou Vercel) seront générés dans le dossier `/out`.
+Le dossier `/out` généré est 100% statique et prêt à être servi sur Cloudflare Pages, Vercel ou tout hébergeur statique avec les en-têtes HTTP de sécurité définis dans `public/_headers`.
 
 ---
 
-## 🔒 Sécurité & Hébergement
+## Licence
 
-InstaShift est configuré pour être déployé sur **Cloudflare Pages** et intègre des règles de sécurité réseau extrêmement rigoureuses définies dans le fichier `public/_headers` :
-* **Content Security Policy (CSP)** stricte.
-* **HSTS (Strict-Transport-Security)** pour forcer le HTTPS.
-* Protection contre le clickjacking et le sniffing de type MIME.
+Distribué sous licence **MIT**. Consultez le fichier `LICENSE` pour plus d'informations.
 
 ---
 
-## 📄 Licence
+## Crédits
 
-Ce projet est distribué sous la licence **MIT**. Voir le fichier `LICENSE` pour plus de détails.
-
----
-
-## 🏢 À propos de Dev.Croney-Tech
-
-**InstaShift** est un projet open-source initié par **Dev.Croney-Tech**, l'agence de développement web du groupe **Croney Technology Group**. Nous concevons des sites web, PWA et applications SaaS premium, immersifs, performants et respectueux de la vie privée.
-
-* **Site web principal** : [dev.croney-tech.fr](https://dev.croney-tech.fr)
-* **Holding** : [group.croney-technology.com](https://group.croney-technology.com)
-* **Contact** : [dev@croney-tech.fr](mailto:dev@croney-tech.fr)
+Conçu et maintenu par **[Dev.Croney-Tech](https://dev.croney-tech.fr)**, filiale d'ingénierie logicielle de **[Croney Technology Group](https://group.croney-technology.com)**.

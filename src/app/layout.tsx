@@ -1,23 +1,27 @@
 import type { Metadata } from "next";
-import { Outfit, Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import { FAQ_ITEMS } from "@/lib/constants";
 import Providers from "./providers";
 import "./globals.css";
 
-const outfit = Outfit({
-  variable: "--font-outfit",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "InstaShift | Qui ne me suit pas sur Instagram (Gratuit & Sécurisé)",
-  description: "Découvrez les non-abonnés en retour et suivez l'évolution de vos followers sans mot de passe. Analyseur Instagram gratuit, 100% sécurisé et local.",
+  metadataBase: new URL("https://instashift.croney-tech.fr"),
+  title:
+    "InstaShift — Analyseur d'audience Instagram local & open-source (Sans mot de passe)",
+  description:
+    "Inspectez vos abonnés Instagram, identifiez les comptes non-réciproques et comparez vos snapshots dans le temps (Git Diff). Exécution 100% locale via JSZip et IndexedDB.",
   keywords: [
     "qui ne me suit pas sur instagram",
     "qui ne me suit plus instagram",
@@ -27,7 +31,7 @@ export const metadata: Metadata = {
     "analyse followers instagram sans mot de passe",
     "analyseur audience instagram prive",
     "comparer abonnes instagram",
-    "instashift"
+    "instashift",
   ],
   authors: [{ name: "Dev.Croney-Tech", url: "https://dev.croney-tech.fr" }],
   alternates: {
@@ -41,24 +45,37 @@ export const metadata: Metadata = {
       index: true,
       follow: true,
       noimageindex: false,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   openGraph: {
-    title: "InstaShift | Qui ne me suit pas sur Instagram (Gratuit & Sécurisé)",
-    description: "Découvrez gratuitement et sans mot de passe qui ne vous suit pas en retour sur Instagram. Analysez vos abonnés de façon 100% sécurisée et locale.",
+    title:
+      "InstaShift — Analyseur d'audience Instagram local & open-source",
+    description:
+      "Identifiez qui ne vous suit pas en retour sur Instagram et comparez vos archives ZIP localement sans jamais saisir vos identifiants.",
     url: "https://instashift.croney-tech.fr",
     siteName: "InstaShift",
     locale: "fr_FR",
     type: "website",
+    images: [
+      {
+        url: "/logo_instashift.png",
+        width: 512,
+        height: 512,
+        alt: "InstaShift — Client-Side Instagram Audience Workbench",
+      },
+    ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "InstaShift | Qui ne me suit pas sur Instagram (Gratuit & Sécurisé)",
-    description: "Analysez vos followers sans risquer le piratage ou le blocage de votre compte. 100% client-side, gratuit et sans mot de passe.",
+    card: "summary",
+    title:
+      "InstaShift — Analyseur d'audience Instagram local & open-source",
+    description:
+      "Analysez vos abonnés Instagram et vos désabonnements localement via votre export ZIP officiel. Zéro serveur, zéro mot de passe.",
     creator: "@CroneyTech",
+    images: ["/logo_instashift.png"],
   },
 };
 
@@ -67,70 +84,84 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Schema.org Graph linking to Croney Technology Group
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "WebSite",
-        "name": "InstaShift",
-        "url": "https://instashift.croney-tech.fr",
-        "publisher": {
+        name: "InstaShift",
+        url: "https://instashift.croney-tech.fr",
+        publisher: {
           "@type": "Organization",
-          "name": "InstaShift"
-        }
+          name: "Dev.Croney-Tech",
+        },
+      },
+      {
+        "@type": "SoftwareApplication",
+        name: "InstaShift",
+        applicationCategory: "UtilitiesApplication",
+        operatingSystem: "Web Browser (Client-Side JSZip & IndexedDB)",
+        url: "https://instashift.croney-tech.fr",
+        license: "https://opensource.org/licenses/MIT",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "EUR",
+        },
+        author: {
+          "@type": "Organization",
+          name: "Dev.Croney-Tech",
+          url: "https://dev.croney-tech.fr",
+        },
       },
       {
         "@type": "Organization",
-        "name": "InstaShift",
-        "url": "https://instashift.croney-tech.fr",
-        "description": "Analyseur gratuit et privé d'abonnés Instagram. Comparez l'évolution de vos abonnés à partir de vos exports de données locaux.",
-        "parentOrganization": {
+        name: "InstaShift",
+        url: "https://instashift.croney-tech.fr",
+        description:
+          "Workbench open-source d'analyse différentielle d'audience Instagram exécuté 100% localement dans le navigateur.",
+        parentOrganization: {
           "@type": "Organization",
-          "name": "Croney Technology Group",
-          "url": "https://group.croney-technology.com"
+          name: "Croney Technology Group",
+          url: "https://group.croney-technology.com",
         },
-        "contactPoint": {
+        contactPoint: {
           "@type": "ContactPoint",
-          "email": "dev@croney-tech.fr",
-          "contactType": "customer service"
+          email: "dev@croney-tech.fr",
+          contactType: "customer service",
         },
-        "sameAs": [
+        sameAs: [
           "https://github.com/Dev-Croney-Tech/instashift",
-          "https://x.com/CroneyTech"
-        ]
-      }
-    ]
+          "https://x.com/CroneyTech",
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: FAQ_ITEMS.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      },
+    ],
   };
 
   return (
     <html
       lang="fr"
-      className={`${outfit.variable} ${inter.variable} antialiased`}
+      className={`dark ${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                if (localStorage.theme === 'dark') {
-                  document.documentElement.classList.add('dark');
-                } else {
-                  document.documentElement.classList.remove('dark');
-                }
-              } catch (_) {}
-            `,
-          }}
-        />
       </head>
-      <body className="min-h-screen bg-bg-deep text-text-primary flex flex-col selection:bg-brand-purple/30">
-        <Providers>
-          {children}
-        </Providers>
+      <body className="min-h-screen bg-[#010102] text-[#f7f8f8] flex flex-col">
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

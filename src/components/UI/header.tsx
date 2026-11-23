@@ -1,17 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { ShieldCheck, Zap, Sun, Moon } from "lucide-react";
+import Image from "next/image";
+import { ShieldCheck, Terminal } from "lucide-react";
 
-// Custom inline SVG for Github to bypass compilation issues in some lucide versions
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 24 24"
-      width="24"
-      height="24"
+      width="16"
+      height="16"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.75"
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -28,87 +27,74 @@ interface HeaderProps {
 }
 
 export default function Header({ onReset }: HeaderProps) {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-
-  useEffect(() => {
-    // Detect theme on mount
-    const isDark = document.documentElement.classList.contains("dark");
-    setTheme(isDark ? "dark" : "light");
-  }, []);
-
-  const toggleTheme = () => {
-    if (theme === "light") {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setTheme("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setTheme("light");
+  const handleResetClick = () => {
+    if (onReset) {
+      onReset();
+    }
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("instashift:reset"));
     }
   };
 
   return (
-    <header className="w-full border-b border-border-glass bg-bg-deep/50 backdrop-blur-md sticky top-0 z-50 transition-all duration-300" role="banner">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        
-        {/* Brand/Logo */}
-        <button
-          onClick={onReset}
-          className="flex items-center space-x-3 text-left focus:outline-none hover:opacity-85 transition-opacity duration-200 cursor-pointer"
-          title="Retourner à l'accueil"
-          type="button"
-        >
-          <div className="relative flex items-center justify-center w-10 h-10 overflow-hidden rounded-xl shadow-glow-cyan bg-bg-card border border-border-glass">
-            <img src="/logo_instashift.png" alt="InstaShift Logo" className="w-8 h-8 object-contain" />
-          </div>
-          <div>
-            <span className="font-bold text-xl tracking-tight bg-gradient-to-r from-text-primary via-brand-indigo to-brand-purple bg-clip-text text-transparent Outfit">
-              Insta<span className="text-brand-cyan">Shift</span>
-            </span>
-            <span className="hidden sm:inline-block ml-2 px-2 py-0.5 text-xs font-medium tracking-wide uppercase rounded-md bg-brand-purple/20 border border-brand-purple/30 text-brand-purple text-glow">
-              OpenSource
-            </span>
-          </div>
-        </button>
-
-        {/* Security / Info badges & Actions */}
-        <div className="flex items-center space-x-4">
-          <div 
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-brand-emerald/10 border border-brand-emerald/20 text-brand-emerald text-xs font-medium animate-fade-in"
-            title="Toutes les données sont analysées dans votre navigateur. Aucun serveur impliqué."
-            role="status"
-          >
-            <ShieldCheck className="w-4 h-4" />
-            <span className="hidden md:inline">100% Local & Sécurisé</span>
-            <span className="inline md:hidden">Hors-ligne</span>
-          </div>
-
-          {/* Theme Toggle Button */}
+    <header
+      className="w-full h-14 border-b border-border-subtle bg-bg-canvas/85 backdrop-blur-md sticky top-0 z-50"
+      role="banner"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between gap-4">
+        {/* Brand / Workbench Identity */}
+        <div className="flex items-center gap-3">
           <button
-            onClick={toggleTheme}
-            className="flex items-center justify-center p-2 rounded-lg bg-bg-item border border-border-glass text-text-secondary hover:text-brand-purple hover:bg-bg-item-hover hover:border-border-glass-hover transition-all duration-200 cursor-pointer"
-            aria-label="Changer de thème"
+            onClick={handleResetClick}
+            className="flex items-center gap-2.5 text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-brand-indigo rounded-md py-1 px-1.5 -ml-1.5 hover:bg-surface-hover transition-colors duration-150 cursor-pointer group"
+            title="Réinitialiser l'espace de travail et revenir à l'import"
+            type="button"
           >
-            {theme === "light" ? (
-              <Moon className="w-5 h-5" />
-            ) : (
-              <Sun className="w-5 h-5" />
-            )}
+            <div className="flex items-center justify-center w-7 h-7 rounded-md bg-surface-2 border border-border-subtle group-hover:border-border-hover transition-colors">
+              <Image
+                src="/logo_instashift.png"
+                alt="Logo InstaShift"
+                width={20}
+                height={20}
+                unoptimized
+                className="w-5 h-5 object-contain"
+              />
+            </div>
+            <span className="font-semibold text-sm tracking-tight text-text-primary">
+              InstaShift
+            </span>
           </button>
 
-          {/* Github Button */}
+          <span className="hidden sm:inline-flex items-center gap-1.5 px-2 py-0.5 text-[11px] font-mono tabular-nums text-text-secondary bg-surface-2 border border-border-subtle rounded">
+            <Terminal className="w-3 h-3 text-brand-indigo" />
+            <span>v2.0.1 · MIT</span>
+          </span>
+        </div>
+
+        {/* Hardware Security Badge & External Links */}
+        <div className="flex items-center gap-2.5">
+          <div
+            className="flex items-center gap-2 px-2.5 py-1 rounded bg-diff-add/10 border border-diff-add/25 text-diff-add text-[11px] font-mono tabular-nums tracking-tight"
+            title="Exécution 100% locale dans le navigateur via JSZip et IndexedDB. Politique CSP verrouillée."
+            role="status"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-diff-add animate-pulse" />
+            <ShieldCheck className="w-3.5 h-3.5 hidden xs:inline" />
+            <span className="hidden md:inline">LOCAL SANDBOX · 0 NETWORK REQUESTS</span>
+            <span className="inline md:hidden">0 NETWORK REQ</span>
+          </div>
+
           <a
             href="https://github.com/Dev-Croney-Tech/instashift"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center p-2 rounded-lg bg-bg-item border border-border-glass text-text-secondary hover:text-brand-purple hover:bg-bg-item-hover hover:border-border-glass-hover transition-all duration-200"
-            aria-label="Code Source sur GitHub"
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-2 border border-border-subtle hover:border-border-hover hover:bg-surface-hover text-xs font-medium text-text-secondary hover:text-text-primary transition-colors duration-150"
+            aria-label="Inspecter le code source sur GitHub"
           >
-            <GithubIcon className="w-5 h-5" />
+            <GithubIcon className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">GitHub</span>
           </a>
         </div>
-
       </div>
     </header>
   );

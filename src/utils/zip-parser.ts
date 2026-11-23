@@ -9,17 +9,16 @@ export interface ExtractedFile {
 export interface ExtractedData {
   followersFiles: ExtractedFile[];
   followingFiles: ExtractedFile[];
+  totalFilesCount: number;
+  fileSizeKb: number;
 }
 
-// Patterns pour détecter les fichiers d'abonnés et d'abonnements
-// On matche les noms de fichiers uniquement (pas les dossiers)
-const FOLLOWERS_PATTERN = /\/?(followers(_\d+)?)\.(json|html)$/i;
-const FOLLOWING_PATTERN = /\/?(following(_\d+)?)\.(json|html)$/i;
+const FOLLOWERS_PATTERN = /(?:^|\/)(followers(?:_\d+)?)\.(json|html)$/i;
+const FOLLOWING_PATTERN = /(?:^|\/)(following(?:_\d+)?)\.(json|html)$/i;
 
 /**
  * Lit une archive ZIP d'export Instagram à la volée et extrait
- * automatiquement TOUS les fichiers contenant les abonnés et les abonnements.
- * Gère les exports fragmentés (followers_1.json, followers_2.json, following_1.json, etc.)
+ * tous les fichiers contenant les abonnés et les abonnements, triés par nom.
  */
 export async function extractInstaFiles(zipFile: File): Promise<ExtractedData> {
   const zip = new JSZip();
@@ -28,28 +27,70 @@ export async function extractInstaFiles(zipFile: File): Promise<ExtractedData> {
   const followersFiles: ExtractedFile[] = [];
   const followingFiles: ExtractedFile[] = [];
 
-  for (const relativePath in loadedZip.files) {
+  const filePaths = Object.keys(loadedZip.files).sort((a, b) =>
+    a.localeCompare(b, undefined, { numeric: true })
+  );
+
+  for (const relativePath of filePaths) {
     const file = loadedZip.files[relativePath];
     if (file.dir) continue;
 
-    // Extraire uniquement le nom du fichier (pas le chemin complet)
-    const fileName = relativePath.split("/").pop()?.toLowerCase() || "";
+    const normalizedPath = relativePath.replace(/\\/g, "/");
+    const fileName = normalizedPath.split("/").pop()?.toLowerCase() || "";
 
-    // Vérifier si c'est un fichier de followers
-    if (FOLLOWERS_PATTERN.test(relativePath)) {
+    if (FOLLOWERS_PATTERN.test(normalizedPath)) {
       const content = await file.async("text");
-      const format = fileName.endsWith(".html") ? "html" as const : "json" as const;
-      followersFiles.push({ name: relativePath, content, format });
-    }
-
-    // Vérifier si c'est un fichier de following
-    // IMPORTANT: ne pas matcher "followers_and_following" (c'est un dossier)
-    if (FOLLOWING_PATTERN.test(relativePath) && !fileName.includes("followers")) {
+      const format = fileName.endsWith(".html") ? ("html" as const) : ("json" as const);
+      followersFiles.push({ name: normalizedPath, content, format });
+    } else if (FOLLOWING_PATTERN.test(normalizedPath) && !fileName.includes("followers")) {
       const content = await file.async("text");
-      const format = fileName.endsWith(".html") ? "html" as const : "json" as const;
-      followingFiles.push({ name: relativePath, content, format });
+      const format = fileName.endsWith(".html") ? ("html" as const) : ("json" as const);
+      followingFiles.push({ name: normalizedPath, content, format });
     }
   }
 
-  return { followersFiles, followingFiles };
+  return {
+    followersFiles,
+    followingFiles,
+    totalFilesCount: followersFiles.length + followingFiles.length,
+    fileSizeKb: Math.round((zipFile.size / 1024) * 10) / 10,
+  };
+}
+
+/**
+ * Lit une sélection directe de fichiers individuels (.json ou .html) décompressés.
+ */
+export async function extractLooseInstaFiles(files: FileList | File[]): Promise<ExtractedData> {
+  const fileArray = Array.from(files).sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { numeric: true })
+  );
+
+  const followersFiles: ExtractedFile[] = [];
+  const followingFiles: ExtractedFile[] = [];
+  let totalBytes = 0;
+
+  for (const file of fileArray) {
+    totalBytes += file.size;
+    const lowerName = file.name.toLowerCase();
+    const isHtml = lowerName.endsWith(".html") || lowerName.endsWith(".htm");
+    const isJson = lowerName.endsWith(".json");
+
+    if (!isHtml && !isJson) continue;
+
+    const format = isHtml ? ("html" as const) : ("json" as const);
+    const content = await file.text();
+
+    if (lowerName.includes("followers")) {
+      followersFiles.push({ name: file.name, content, format });
+    } else if (lowerName.includes("following")) {
+      followingFiles.push({ name: file.name, content, format });
+    }
+  }
+
+  return {
+    followersFiles,
+    followingFiles,
+    totalFilesCount: followersFiles.length + followingFiles.length,
+    fileSizeKb: Math.round((totalBytes / 1024) * 10) / 10,
+  };
 }
